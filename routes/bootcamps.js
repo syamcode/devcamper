@@ -6,7 +6,7 @@ const {
   updateBootcamp,
   deleteBootcamp,
   getBootcampsInRadius
-} = require('../controllers/bootcamp');
+} = require('../controllers/bootcamps');
 
 const router = express.Router();
 
