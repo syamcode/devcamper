@@ -43,6 +43,13 @@ exports.createUser = asyncHandler(async (req, res, next) => {
 // @route       PUT /api/v1/users/:id
 // @access      Private/Admin
 exports.updateUser = asyncHandler(async (req, res, next) => {
+  // Disable change role of current user
+  if (req.body.role && req.user.id === req.params.id) {
+    return next(
+      new ErrorResponse(`Unable to change current logged in user role`, 400)
+    );
+  }
+
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
@@ -70,7 +77,14 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 // @route       DELETE /api/v1/users/:id
 // @access      Private/Admin
 exports.deleteUser = asyncHandler(async (req, res, next) => {
-  await User.findByIdAndDelete(req.params.id);
+  // Disable change role of current user
+  if (req.user.id === req.params.id) {
+    return next(
+      new ErrorResponse(`Unable to delete current logged in user`, 400)
+    );
+  }
+
+  const user = await User.findByIdAndDelete(req.params.id);
 
   if (!user) {
     return next(
