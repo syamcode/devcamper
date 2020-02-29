@@ -78,7 +78,7 @@ exports.updateBootcamp = asyncHandler(async (req, res, next) => {
     return next(
       new ErrorResponse(
         `User ${req.user.id} is not authorized to update this bootcamp`,
-        404
+        401
       )
     );
   }
@@ -108,7 +108,7 @@ exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
     return next(
       new ErrorResponse(
         `User ${req.user.id} is not authorized to delete this bootcamp`,
-        404
+        401
       )
     );
   }
@@ -162,7 +162,7 @@ exports.uploadBootcampPhoto = asyncHandler(async (req, res, next) => {
     return next(
       new ErrorResponse(
         `User ${req.user.id} is not authorized to update this bootcamp`,
-        404
+        401
       )
     );
   }
