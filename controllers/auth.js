@@ -16,7 +16,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     role
   });
 
-  csendTokenResponse(user, 200, res);
+  sendTokenResponse(user, 200, res);
 });
 
 // @desc        Login User
