@@ -62,10 +62,7 @@ exports.createBootcamp = asyncHandler(async (req, res, next) => {
 // @route       PUT /api/v1/bootcamps/:id
 // @access      Private
 exports.updateBootcamp = asyncHandler(async (req, res, next) => {
-  const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
+  let bootcamp = await Bootcamp.findById(req.params.id);
 
   if (!bootcamp) {
     return next(
@@ -83,7 +80,7 @@ exports.updateBootcamp = asyncHandler(async (req, res, next) => {
     );
   }
 
-  bootcamp.update(req.body, {
+  bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
   });
